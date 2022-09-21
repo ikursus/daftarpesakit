@@ -2,23 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PesakitController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Authentication\LoginController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    //kebab-case // Biasanya digunakan untuk templating
-    //camelCase // Biasanya digunakan untuk nama class, method/function
-    //snake_case // digunakan pada nama table
-    return view('auth.template-login');
-});
-
-Route::post('/login', function () {
-    return 'Terima Data Login';
-});
+Route::get('/login', [LoginController::class, 'create'])->name('login');
+Route::post('/login', [LoginController::class, 'store']);
 
 // Semua halaman dibawah, perlu LOGIN
 Route::get('/dashboard', DashboardController::class);
