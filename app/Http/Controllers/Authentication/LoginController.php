@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Authentication;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
@@ -12,8 +13,10 @@ class LoginController extends Controller
         return view('auth.template-login');
     }
 
-    public function store(Request $request)
+    public function store(LoginRequest $request)
     {
+        $request->validated();
+
         return $request->all();
     }
 }

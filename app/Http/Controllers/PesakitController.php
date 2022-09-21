@@ -34,6 +34,11 @@ class PesakitController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_pesakit' => ['required', 'min:3'],
+            'jenis_pengenalan' => 'required|in:no_kp_baru,no_kp_lama,no_passport',
+        ]);
+
         if ($request->has('nama_pesakit') && !empty($request->input('nama_pesakit')))
         {
             return $request->input('nama_pesakit');

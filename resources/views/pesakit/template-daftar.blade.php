@@ -22,16 +22,19 @@
 
         <div class="mb-3">
           <label for="nama_pesakit" class="form-label">Nama Pesakit</label>
-          <input type="text" class="form-control" name="nama_pesakit">
+          <input type="text" class="form-control" name="nama_pesakit" value="{{ old('nama_pesakit') }}">
+          @error('nama_pesakit')
+            <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
         </div>
 
         <div class="mb-3">
           <label for="nokp_pesakit" class="form-label">Jenis Pengenalan</label>
           <select name="jenis_pengenalan" class="form-control">
             <option value="">-- Sila Pilih --</option>
-            <option value="no_kp_baru">No KP Baru</option>
-            <option value="no_kp_lama">No KP Lama</option>
-            <option value="no_passport">No Passport</option>
+            <option value="no_kp_baru" {{ old('jenis_pengenalan') == 'no_kp_baru' ? 'selected="selected' : NULL }}>No KP Baru</option>
+            <option value="no_kp_lama" {{ old('jenis_pengenalan') == 'no_kp_lama' ? 'selected="selected' : NULL }}>No KP Lama</option>
+            <option value="no_passport" {{ old('jenis_pengenalan') == 'no_passport' ? 'selected="selected' : NULL }}>No Passport</option>
           </select>
         </div>
 
