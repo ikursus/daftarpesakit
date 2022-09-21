@@ -34,7 +34,12 @@ class PesakitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->has('nama_pesakit') && !empty($request->input('nama_pesakit')))
+        {
+            return $request->input('nama_pesakit');
+        }
+
+        return $request->all();
     }
 
     /**
