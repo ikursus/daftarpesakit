@@ -20,7 +20,8 @@ Route::post('/login', function () {
 
 // Semua halaman dibawah, perlu LOGIN
 Route::get('/dashboard', function () {
-    $titleDariFunction = 'DASHBOARD';
+
+    $titleDariFunction = '<script>alert("test")</script><span style="color: red">DASHBOARD</span>';
 
     $subTitle = 'Halaman Dashboard Ahli';
 

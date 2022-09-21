@@ -1,9 +1,21 @@
+@php
+$number = 10;
+@endphp
+
+@if ($number <= 20)
+    Nombor masih kurang 20
+@else
+    Nombor sudah melebihi 20
+@endif
+
+
+
 <h1>
-    <?php echo $titleDiTemplate ?? $titleDariFunction ?? "DEFAULT VALUE"; ?>
 
     <br>
 
-    {{ $titleDiTemplate ?? $titleDariFunction ?? "DEFAULT VALUE" }}
+    {{ $titleDiTemplate??$titleDariFunction??"DEFAULTVALUE" }}
+    {{-- {!! $titleDiTemplate ?? $titleDariFunction ?? "DEFAULT VALUE" !!} --}}
 </h1>
 
 <table>
