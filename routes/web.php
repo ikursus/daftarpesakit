@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PesakitController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,50 +21,14 @@ Route::post('/login', function () {
 });
 
 // Semua halaman dibawah, perlu LOGIN
-Route::get('/dashboard', function () {
+Route::get('/dashboard', DashboardController::class);
 
-    $titleDariFunction = '<script>alert("test")</script><span style="color: red">DASHBOARD</span>';
+Route::get('/pesakit', [PesakitController::class, 'index']);
+Route::get('/pesakit/daftar', [PesakitController::class, 'create']);
+Route::post('/pesakit/daftar', [PesakitController::class, 'store']);
+Route::get('/pesakit/{id}', [PesakitController::class, 'show']);
 
-    $subTitle = 'Halaman Dashboard Ahli';
 
-    $dataSenaraiAhli = [
-        ['nama' => 'Ali', 'email' => 'ali@gmail.com'],
-        ['nama' => 'Ali2', 'email' => 'ali2@gmail.com'],
-        ['nama' => 'Ali3', 'email' => 'ali3@gmail.com'],
-        ['nama' => 'Ali4', 'email' => 'ali4@gmail.com'],
-    ];
-
-    // Cara 1 Attach Data
-    return view('template-dashboard')->with('titleDiTemplate', $titleDariFunction)
-    ->with('subTitle', $subTitle)
-    ->with('dataSenaraiAhli', $dataSenaraiAhli);
-    // Cara 2 Attach Data
-    // return view('template-dashboard', [
-    //     'titleDiTemplate' => $titleDariFunction,
-    //     'subTitle' => $subTitle,
-    //     'dataSenaraiAhli' => $dataSenaraiAhli,
-    // ]);
-    // Cara 3 Attach Data
-    // return view('template-dashboard', compact(
-    //     'titleDariFunction',
-    //     'subTitle',
-    //     'dataSenaraiAhli'
-    // ));
-});
-
-Route::get('/pesakit', fn () => view('pesakit.template-index'));
-
-Route::get('/pesakit/daftar', function () {
-    return view('pesakit.template-daftar');
-});
-
-Route::post('/pesakit/daftar', function () {
-    //return view('pesakit.template-daftar');
-});
-
-Route::get('/pesakit/{id}', function ($id) {
-    return 'Rekod pesakit';
-});
 
 Route::get('/pesakit/{id}/triage', function ($id) {
     return 'Daftar rekod triage pesakit';
@@ -71,6 +37,7 @@ Route::get('/pesakit/{id}/triage', function ($id) {
 Route::post('/pesakit/{id}/triage', function ($id) {
     return 'Terima data daftar rekod triage pesakit';
 });
+
 
 
 Route::get('/pesakit/{id}/rawatan', function ($id) {
