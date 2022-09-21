@@ -50,12 +50,14 @@ Route::get('/dashboard', function () {
     // ));
 });
 
+Route::get('/pesakit', fn () => view('pesakit.template-index'));
+
 Route::get('/pesakit/daftar', function () {
-    return 'Daftar Pesakit';
+    return view('pesakit.template-daftar');
 });
 
 Route::post('/pesakit/daftar', function () {
-    return 'Terima Data Daftar Pesakit';
+    //return view('pesakit.template-daftar');
 });
 
 Route::get('/pesakit/{id}', function ($id) {
