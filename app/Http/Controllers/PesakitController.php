@@ -62,7 +62,7 @@ class PesakitController extends Controller
         // Response selepas data disimpan
         // return redirect('/pesakit/' . $pesakit . '/triage');
         // return redirect()->route('pesakit.triage.create', $pesakit);
-        return to_route('pesakit.triage.create', $pesakit);
+        return to_route('pesakit.triage.create', $pesakit)->with('alert-success', 'Rekod berjaya disimpan!');
     }
 
     /**
@@ -109,7 +109,7 @@ class PesakitController extends Controller
 
         $pesakit = DB::table('pesakit')->where('id', $id)->update($data);
 
-        return redirect('/pesakit');
+        return redirect('/pesakit')->with('alert-success', 'Rekod berjaya dikemaskini!');
     }
 
     /**

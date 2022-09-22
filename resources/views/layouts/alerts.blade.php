@@ -1,4 +1,4 @@
-@if ($errors->any())
+    @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -6,4 +6,12 @@
                 @endforeach
             </ul>
         </div>
+    @endif
+
+    @if (session('alert-success'))
+
+    <div class="alert alert-success">
+        {{ session('alert-success') }}
+    </div>
+
     @endif
