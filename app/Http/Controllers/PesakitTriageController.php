@@ -25,11 +25,7 @@ class PesakitTriageController extends Controller
     public function create($id)
     {
         //$pesakit = DB::table('pesakit')->where('id', '=', $id)->first();
-        $senaraiBilikRawatan = [
-            'Bilik 1' => 'Bilik 1',
-            'Bilik 2' => 'Bilik 2',
-            'Bilik 3' => 'Bilik 3'
-        ];
+        $senaraiBilikRawatan = DB::table('bilik_rawatan')->select('nama_bilik')->get();
 
         $pesakit = DB::table('pesakit')->whereId($id)->first();
 
