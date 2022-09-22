@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class PesakitController extends Controller
 {
@@ -13,7 +15,14 @@ class PesakitController extends Controller
      */
     public function index()
     {
-        return view('pesakit.template-index');
+        $senaraiPesakit = DB::table('pesakit')->get();
+
+        // Die & Dump
+        // dd($senaraiPesakit);
+
+        //return view('pesakit.template-index', ['senaraiPesakit' => $senaraiPesakit]);
+        //return view('pesakit.template-index')->with('senaraiPesakit', $senaraiPesakit);
+        return view('pesakit.template-index', compact('senaraiPesakit'));
     }
 
     /**
@@ -34,17 +43,23 @@ class PesakitController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        // Dapatkan data daripada proses validation
+        $data = $request->validate([
             'nama_pesakit' => ['required', 'min:3'],
             'jenis_pengenalan' => 'required|in:no_kp_baru,no_kp_lama,no_passport',
+            'id_pengenalan' => ['required'],
+            'kewarganegaraan' => ['required'],
+            'jenis_appointment' => ['required']
         ]);
 
-        if ($request->has('nama_pesakit') && !empty($request->input('nama_pesakit')))
-        {
-            return $request->input('nama_pesakit');
-        }
+        // Additional data yang bukan dari form
+        $data['mrn'] = Str::random(8);
 
-        return $request->all();
+        // Simpan data ke dalam table pesakit menerusi Query Builder
+        DB::table('pesakit')->insert($data);
+
+        // Response selepas data disimpan
+        return redirect('/pesakit');
     }
 
     /**
@@ -66,7 +81,9 @@ class PesakitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pesakit = DB::table('pesakit')->where('id', '=', $id)->first();
+
+        return view('pesakit.template-edit', compact('pesakit'));
     }
 
     /**
@@ -78,7 +95,18 @@ class PesakitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Dapatkan data daripada proses validation
+        $data = $request->validate([
+            'nama_pesakit' => ['required', 'min:3'],
+            'jenis_pengenalan' => 'required|in:no_kp_baru,no_kp_lama,no_passport',
+            'id_pengenalan' => ['required'],
+            'kewarganegaraan' => ['required'],
+            'jenis_appointment' => ['required']
+        ]);
+
+        $pesakit = DB::table('pesakit')->where('id', $id)->update($data);
+
+        return redirect('/pesakit');
     }
 
     /**
@@ -89,6 +117,8 @@ class PesakitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pesakit = DB::table('pesakit')->where('id', $id)->delete();
+
+        return redirect('/pesakit');
     }
 }

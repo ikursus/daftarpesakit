@@ -16,10 +16,12 @@
     </div>
 
     <form method="POST" action="">
+        @method('PATCH')
+        <input type="hidden" name="_method" value="PATCH">
 
         @include('pesakit.form')
 
-        <button type="submit" class="btn btn-primary">Simpan Maklumat</button>
+        <button type="submit" class="btn btn-primary">Kemaskini Maklumat</button>
 
     </form>
 

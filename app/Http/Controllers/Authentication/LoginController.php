@@ -17,6 +17,7 @@ class LoginController extends Controller
     {
         $request->validated();
 
-        return $request->all();
+        //return $request->input('email');
+        return $request->email;
     }
 }

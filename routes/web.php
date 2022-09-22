@@ -19,7 +19,10 @@ Route::get('/dashboard', DashboardController::class);
 Route::get('/pesakit', [PesakitController::class, 'index']);
 Route::get('/pesakit/daftar', [PesakitController::class, 'create']);
 Route::post('/pesakit/daftar', [PesakitController::class, 'store']);
+Route::get('/pesakit/{id}/edit', [PesakitController::class, 'edit']);
+Route::patch('/pesakit/{id}/edit', [PesakitController::class, 'update']);
 Route::get('/pesakit/{id}', [PesakitController::class, 'show']);
+Route::delete('/pesakit/{id}/delete', [PesakitController::class, 'destroy']);
 
 
 
