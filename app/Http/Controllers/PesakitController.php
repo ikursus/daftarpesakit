@@ -56,10 +56,13 @@ class PesakitController extends Controller
         $data['mrn'] = Str::random(8);
 
         // Simpan data ke dalam table pesakit menerusi Query Builder
-        DB::table('pesakit')->insert($data);
+        // $pesakit = DB::table('pesakit')->insert($data);
+        $pesakit = DB::table('pesakit')->insertGetId($data);
 
         // Response selepas data disimpan
-        return redirect('/pesakit');
+        // return redirect('/pesakit/' . $pesakit . '/triage');
+        // return redirect()->route('pesakit.triage.create', $pesakit);
+        return to_route('pesakit.triage.create', $pesakit);
     }
 
     /**

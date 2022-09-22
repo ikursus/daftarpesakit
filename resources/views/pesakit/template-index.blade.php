@@ -49,6 +49,9 @@
                         <td>{{ $pesakit->kewarganegaraan }}</td>
                         <td>{{ $pesakit->jenis_appointment }}</td>
                         <td>
+                            <a href="{{ route('pesakit.triage.create', $pesakit->id) }}" class="btn btn-primary">
+                                TRIAGE
+                            </a>
                             <a href="/pesakit/{{ $pesakit->id }}/edit" class="btn btn-info">
                                 EDIT
                             </a>

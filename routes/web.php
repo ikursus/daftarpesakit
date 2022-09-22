@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PesakitController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PesakitTriageController;
 use App\Http\Controllers\Authentication\LoginController;
 
 Route::get('/', function () {
@@ -24,15 +25,8 @@ Route::patch('/pesakit/{id}/edit', [PesakitController::class, 'update']);
 Route::get('/pesakit/{id}', [PesakitController::class, 'show']);
 Route::delete('/pesakit/{id}/delete', [PesakitController::class, 'destroy']);
 
-
-
-Route::get('/pesakit/{id}/triage', function ($id) {
-    return 'Daftar rekod triage pesakit';
-});
-
-Route::post('/pesakit/{id}/triage', function ($id) {
-    return 'Terima data daftar rekod triage pesakit';
-});
+Route::get('/pesakit/{id}/triage', [PesakitTriageController::class, 'create'])->name('pesakit.triage.create');
+Route::post('/pesakit/{id}/triage', [PesakitTriageController::class, 'store'])->name('pesakit.triage.store');
 
 
 
