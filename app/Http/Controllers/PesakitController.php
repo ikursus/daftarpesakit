@@ -47,7 +47,7 @@ class PesakitController extends Controller
         $data = $request->validate([
             'nama_pesakit' => ['required', 'min:3'],
             'jenis_pengenalan' => 'required|in:no_kp_baru,no_kp_lama,no_passport',
-            'id_pengenalan' => ['required'],
+            'id_pengenalan' => ['required', 'unique:pesakit,id_pengenalan'],
             'kewarganegaraan' => ['required'],
             'jenis_appointment' => ['required']
         ]);
@@ -102,7 +102,7 @@ class PesakitController extends Controller
         $data = $request->validate([
             'nama_pesakit' => ['required', 'min:3'],
             'jenis_pengenalan' => 'required|in:no_kp_baru,no_kp_lama,no_passport',
-            'id_pengenalan' => ['required'],
+            'id_pengenalan' => ['required', 'unique:pesakit,id_pengenalan,' . $id],
             'kewarganegaraan' => ['required'],
             'jenis_appointment' => ['required']
         ]);
