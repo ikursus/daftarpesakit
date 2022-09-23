@@ -17,8 +17,8 @@
 @endsection
 
 @section('content-page')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Maklumat Triage Pesakit: {{ $pesakit->nama_pesakit }}</h1>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Maklumat Rawatan Pesakit: {{ $pesakit->nama_pesakit }}</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
     <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -31,53 +31,43 @@
     </div>
 </div>
 
+
 <div class="container">
-    <form method="POST" action="{{ route('pesakit.triage.store', $pesakit->id) }}">
+    <form method="POST" action="{{ route('pesakit.rawatan.store', $pesakit->id) }}">
         @csrf
     <div class="card">
         <div class="card-header">
-            <p class="card-title">Assign Triage Pesakit</p>
+            <p class="card-title">Maklumat Rawatan Pesakit</p>
         </div>
         <div class="card-body">
 
             <div class="mb-3">
-                <label for="bilik_rawatan" class="form-label">BILIK RAWATAN</label>
-                <select name="bilik_rawatan" class="form-control">
-
-                    <option value="">-- SILA PILIH --</option>
-
-                    {{-- @foreach ($senaraiBilikRawatan as $key => $value)
-                        <option value="{{ $key }}">{{ $value }}</option>
-                    @endforeach --}}
-                    @foreach ($senaraiBilikRawatan as $bilik)
-                        <option value="{{ $bilik->nama_bilik }}">{{ $bilik->nama_bilik }}</option>
-                    @endforeach
-
-                </select>
-                @error('bilik_rawatan')
+                <label for="nama_doktor" class="form-label">NAMA DOKTOR</label>
+                <input type="text" name="nama_doktor" class="form-control">
+                @error('nama_doktor')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 
             <div class="mb-3">
-                <label for="tarikh_rawatan" class="form-label">TARIKH RAWATAN</label>
-                <input type="text" name="tarikh_rawatan" class="form-control datepicker">
-                @error('tarikh_rawatan')
+                <label for="id_doktor" class="form-label">ID DOKTOR</label>
+                <input type="text" name="id_doktor" class="form-control">
+                @error('id_doktor')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 
             <div class="mb-3">
-                <label for="prosedur" class="form-label">PROSEDUR</label>
-                <input type="text" name="prosedur" class="form-control">
-                @error('prosedur')
+                <label for="diagnosis" class="form-label">DIAGNOSIS</label>
+                <textarea name="diagnosis" class="form-control"></textarea>
+                @error('diagnosis')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Assign Triage</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
     </div>
     </form>
@@ -85,7 +75,7 @@
 
     <hr class="mb-5">
 
-    <h3>SEJARAH TRIAGE PESAKIT</h3>
+    <h3>SEJARAH RAWATAN PESAKIT</h3>
 
     <div class="table-responsive">
 
@@ -95,28 +85,26 @@
                     <th>ID</th>
                     <th>NAMA PESAKIT</th>
                     <th>MRN</th>
-                    <th>BILIK RAWATAN</th>
-                    <th>TARIKH RAWATAN</th>
-                    <th>PROSEDUR</th>
+                    <th>NAMA DOKTOR</th>
+                    <th>ID DOKTOR</th>
+                    <th>DIAGNOSIS</th>
                     <th>TINDAKAN</th>
                 </tr>
             </thead>
 
             <tbody>
 
-                @foreach ($senaraiTriage as $triage)
+                @foreach ($senaraiRawatan as $rawatan)
 
                     <tr>
-                        <td>{{ $triage->triage_id }}</td>
-                        <td>{{ $triage->nama_pesakit }}</td>
-                        <td>{{ $triage->mrn }}</td>
-                        <td>{{ $triage->bilik_rawatan }}</td>
-                        <td>{{ $triage->tarikh_rawatan }}</td>
-                        <td>{{ $triage->prosedur }}</td>
+                        <td>{{ $rawatan->id }}</td>
+                        <td>{{ $rawatan->pesakit->nama_pesakit }}</td>
+                        <td>{{ $rawatan->pesakit->mrn }}</td>
+                        <td>{{ $rawatan->nama_doktor }}</td>
+                        <td>{{ $rawatan->id_doktor }}</td>
+                        <td>{{ $rawatan->diagnosis }}</td>
                         <td>
-                            <a href="{{ route('pesakit.rawatan.create', $pesakit->id) }}" class="btn btn-primary">
-                                RAWATAN
-                            </a>
+
                         </td>
                     </tr>
 

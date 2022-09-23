@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pesakit;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class PesakitController extends Controller
 {
@@ -15,7 +16,10 @@ class PesakitController extends Controller
      */
     public function index()
     {
-        $senaraiPesakit = DB::table('pesakit')->get();
+        // $senaraiPesakit = DB::table('pesakit')->get();
+        // $senaraiPesakit = Pesakit::all();
+        $senaraiPesakit = Pesakit::orderBy('id', 'desc')->paginate(5);
+        // return response()->json($senaraiPesakit);
 
         // Die & Dump
         // dd($senaraiPesakit);
@@ -84,7 +88,8 @@ class PesakitController extends Controller
      */
     public function edit($id)
     {
-        $pesakit = DB::table('pesakit')->where('id', '=', $id)->first();
+        //$pesakit = DB::table('pesakit')->where('id', '=', $id)->first();
+        $pesakit = Pesakit::find($id);
 
         return view('pesakit.template-edit', compact('pesakit'));
     }
@@ -107,7 +112,9 @@ class PesakitController extends Controller
             'jenis_appointment' => ['required']
         ]);
 
-        $pesakit = DB::table('pesakit')->where('id', $id)->update($data);
+        // $pesakit = DB::table('pesakit')->where('id', $id)->update($data);
+        $pesakit = Pesakit::find($id);
+        $pesakit->update($data);
 
         return redirect('/pesakit')->with('alert-success', 'Rekod berjaya dikemaskini!');
     }
@@ -120,8 +127,10 @@ class PesakitController extends Controller
      */
     public function destroy($id)
     {
-        $pesakit = DB::table('pesakit')->where('id', $id)->delete();
+        //$pesakit = DB::table('pesakit')->where('id', $id)->delete();
+        $pesakit = Pesakit::find($id);
+        $pesakit->delete();
 
-        return redirect('/pesakit');
+        return redirect('/pesakit')->with('alert-success', 'Rekod berjaya dihapuskan!');
     }
 }

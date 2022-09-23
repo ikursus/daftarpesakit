@@ -13,8 +13,10 @@
     This week
     </button>
     </div>
-    </div>
+</div>
 
+
+<div class="container">
     <form method="POST" action="">
 
         @include('pesakit.form')
@@ -22,5 +24,5 @@
         <button type="submit" class="btn btn-primary">Simpan Maklumat</button>
 
     </form>
-
+</div>
 @endsection

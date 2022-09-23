@@ -13,8 +13,9 @@
     This week
     </button>
     </div>
-    </div>
+</div>
 
+<div class="container">
     <form method="POST" action="">
         @method('PATCH')
         <input type="hidden" name="_method" value="PATCH">
@@ -24,5 +25,5 @@
         <button type="submit" class="btn btn-primary">Kemaskini Maklumat</button>
 
     </form>
-
+</div>
 @endsection

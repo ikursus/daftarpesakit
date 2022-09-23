@@ -107,6 +107,9 @@ body {
   <body class="text-center">
 
 <main class="form-signin w-100 m-auto">
+
+    @include('layouts.alerts')
+
   <form method="POST">
     @csrf
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>

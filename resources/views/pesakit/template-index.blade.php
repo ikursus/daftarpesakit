@@ -6,8 +6,8 @@
     <h1 class="h2">Borang Pendaftaran Pesakit</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
-    <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-    <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+    <a href="{{ route('download.pesakit.excel') }}" class="btn btn-sm btn-outline-secondary">EXCEL</a>
+    <a href="{{ route('download.pesakit.json') }}" class="btn btn-sm btn-outline-secondary">JSON</a>
     </div>
     <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
     <span data-feather="calendar" class="align-text-bottom"></span>
@@ -16,6 +16,7 @@
     </div>
 </div>
 
+<div class="container">
 <div class="row my-5">
 
     <div class="col-12">
@@ -55,12 +56,34 @@
                             <a href="/pesakit/{{ $pesakit->id }}/edit" class="btn btn-info">
                                 EDIT
                             </a>
+
+
                             <form action="/pesakit/{{ $pesakit->id }}/delete" method="POST">
                                 @method("DELETE")
                                 @csrf
-                                <button class="btn btn-danger">
-                                    DELETE
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ $pesakit->id }}">
+                                DELETE
                                 </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="modal-delete-{{ $pesakit->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">PENGESAHAN</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Adakah anda bersetuju untuk menghapuskan data ini?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger">YA</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
                             </form>
                         </td>
                     </tr>
@@ -73,8 +96,10 @@
 
         </div>
 
+        {{ $senaraiPesakit->links() }}
+
     </div>
 
 </div>
-
+</div>
 @endsection
